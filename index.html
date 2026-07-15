@@ -3,12 +3,255 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Redirecting</title>
+<title>Registration</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
+body{
+background:linear-gradient(135deg,#2563eb,#06b6d4);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+.card{
+width:100%;
+max-width:430px;
+background:#fff;
+border-radius:24px;
+padding:25px;
+box-shadow:0 15px 40px rgba(0,0,0,.18);
+animation:show .5s ease;
+}
+@keyframes show{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
+}
+.logo{
+width:70px;
+height:70px;
+border-radius:20px;
+background:#2563eb;
+color:#fff;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+font-weight:700;
+}
+h2{
+text-align:center;
+margin:20px 0 8px;
+color:#111827;
+}
+.sub{
+text-align:center;
+color:#6b7280;
+margin-bottom:25px;
+font-size:14px;
+line-height:22px;
+}
+.field{
+display:flex;
+align-items:center;
+border:1px solid #dbe4ef;
+border-radius:15px;
+padding:0 15px;
+margin-bottom:16px;
+height:56px;
+transition:.3s;
+}
+.field:focus-within{
+border-color:#2563eb;
+box-shadow:0 0 0 4px rgba(37,99,235,.12);
+}
+.field i{
+width:22px;
+color:#64748b;
+}
+input{
+flex:1;
+border:none;
+outline:none;
+font-size:15px;
+padding-left:10px;
+}
+button{
+width:100%;
+height:56px;
+border:none;
+border-radius:15px;
+background:#2563eb;
+color:#fff;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+}
+button:hover{
+background:#1d4ed8;
+transform:translateY(-2px);
+}
+.note{
+margin-top:18px;
+text-align:center;
+font-size:13px;
+color:#64748b;
+line-height:20px;
+}
+.success{
+text-align:center;
+}
+.check{
+width:90px;
+height:90px;
+margin:10px auto 20px;
+border-radius:50%;
+background:#22c55e;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:40px;
+color:#fff;
+}
+.success h2{
+margin-bottom:10px;
+}
+.success p{
+color:#6b7280;
+line-height:26px;
+margin-bottom:25px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+
+<div id="formBox">
+
+<div class="logo">VB</div>
+
+<h2>Complete Your Profile</h2>
+
+<p class="sub">
+Fill in your details to receive future updates.
+</p>
+
+<form id="form">
+
+<div class="field">
+<i class="fa fa-user"></i>
+<input id="name" placeholder="Full Name" required>
+</div>
+
+<div class="field">
+<i class="fa fa-phone"></i>
+<input id="phone" type="tel" placeholder="Mobile Number" required>
+</div>
+
+<div class="field">
+<i class="fa fa-envelope"></i>
+<input id="email" type="email" placeholder="Email Address" required>
+</div>
+
+<div class="field">
+<i class="fa fa-city"></i>
+<input id="city" placeholder="City" required>
+</div>
+
+<div class="field">
+<i class="fa fa-location-dot"></i>
+<input id="state" placeholder="State" required>
+</div>
+
+<div class="field">
+<i class="fa fa-earth-asia"></i>
+<input id="country" placeholder="Country" required>
+</div>
+
+<button type="submit">Register</button>
+
+</form>
+
+<p class="note">
+Your information is securely processed.
+</p>
+
+</div>
+
+</div>
 
 <script>
-redirect("https://vestigebillionaires.in/home.html");
+
+const card=document.getElementById("card");
+
+function showRegistered(){
+
+card.innerHTML=`
+
+<div class="success">
+
+<div class="check">
+✔
+</div>
+
+<h2>You're Already Registered</h2>
+
+<p>
+Thank you for registering.<br><br>
+You will receive important announcements,
+updates and follow-up information on your
+registered email address.
+</p>
+
+<button onclick="window.location.reload()">
+OK
+</button>
+
+</div>
+
+`;
+
+}
+
+if(localStorage.getItem("registered")=="true"){
+showRegistered();
+}
+
+document.getElementById("form")?.addEventListener("submit",function(e){
+
+e.preventDefault();
+
+localStorage.setItem("registered","true");
+
+const body=
+
+`Full Name : ${name.value}
+
+Phone : ${phone.value}
+
+Email : ${email.value}
+
+City : ${city.value}
+
+State : ${state.value}
+
+Country : ${country.value}`;
+
+window.location.href=
+`mailto:vestigebillion@gmail.com?subject=New Registration&body=${encodeURIComponent(body)}`;
+
+setTimeout(showRegistered,800);
+
+});
+
 </script>
 
 </body>
